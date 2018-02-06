@@ -1,5 +1,6 @@
 import * as path from 'path';
 
+import IPost from './interfaces/post';
 import PostsReader from './posts-reader';
 import PostRenderer from './post-renderer';
 
@@ -15,8 +16,8 @@ export default class PageGenerator {
   }
 
   build() {
-    return this.postsReader.read().then((posts: any) => {
-      posts.forEach((post: any) => {
+    return this.postsReader.read().then((posts: Array<IPost>) => {
+      posts.forEach((post: IPost) => {
         console.log(this.postRenderer.render(post));
       });
     });

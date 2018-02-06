@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 import * as path from 'path';
 
+import IPost from './interfaces/post';
+
 export default class PostRenderer {
   private postTemplate: Function;
 
@@ -10,7 +12,7 @@ export default class PostRenderer {
     this.postTemplate = Handlebars.compile(templateSrc.toString('utf-8'));
   }
 
-  render(post: any) {
+  render(post: IPost) {
     return this.postTemplate(post);
   }
 }
