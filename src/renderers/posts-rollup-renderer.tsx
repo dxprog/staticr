@@ -16,7 +16,7 @@ const PostsRollupRenderer: IRenderer = {
       resolve([{
         title: 'Archives Page 1',
         pageComponent: <PostsRollup posts={posts} />,
-        path: `archives/`
+        path: `/`
       }]);
     });
   }
