@@ -31,7 +31,7 @@ export default class PageGenerator {
     this.basePath = options.contentDir;
     this.readers = [ new PostsReader(path.join(this.basePath, 'posts/')) ];
     this.renderers = [ PostRenderer, PostsRollupRenderer ];
-    this.writer = new SiteWriter(path.join(process.cwd(), options.outputDir));
+    this.writer = new SiteWriter(options.outputDir);
   }
 
   public build(): Promise<any> {
