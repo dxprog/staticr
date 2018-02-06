@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { ReactNode } from 'react';
 
-import IPost from '../interfaces/post';
-
 interface Props {
-  post: IPost;
+  title: string;
+  bodyNodes: Array<ReactNode>;
 }
 
 export default class Post extends React.Component<Props, undefined> {
@@ -12,10 +11,14 @@ export default class Post extends React.Component<Props, undefined> {
 
   render(): ReactNode {
     return (
-      <article>
-        <h2>{this.props.post.attributes.title}</h2>
-        <div dangerouslySetInnerHTML={{ __html: this.props.post.html}} />
-      </article>
+      <html>
+        <head>
+          <title>{this.props.title}</title>
+        </head>
+        <body>
+          {this.props.bodyNodes}
+        </body>
+      </html>
     );
   }
 }
