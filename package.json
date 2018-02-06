@@ -1,6 +1,6 @@
 {
   "name": "staticr-site",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A stupid static site generator because I hate everything",
   "main": "src/index.ts",
   "scripts": {
