@@ -9,11 +9,16 @@ import PostRenderer from './renderers/post-renderer';
 import PostsRollupRenderer from './renderers/posts-rollup-renderer';
 import SiteWriter from './site-writer';
 
+import IPageGeneratorOptions from './interfaces/page-generator-options';
+import IPost from './interfaces/post';
 import IRenderedPost from './interfaces/rendered-page';
 import IRenderer from './interfaces/renderer';
-import IPost from './interfaces/post';
 
-const HTML_DOCTYPE = '<!DOCTYPE html>\n';
+const HTML_DOCTYPE: string = '<!DOCTYPE html>\n';
+const DEFAULT_OPTIONS: IPageGeneratorOptions = {
+  contentDir: process.cwd(),
+  outputDir: path.join(process.cwd(), 'build/')
+};
 
 export default class PageGenerator {
   private basePath: string;
@@ -21,11 +26,12 @@ export default class PageGenerator {
   private renderers: Array<IRenderer>;
   private writer: SiteWriter;
 
-  constructor(basePath: string) {
-    this.basePath = basePath || process.cwd();
+  constructor(options: IPageGeneratorOptions = DEFAULT_OPTIONS) {
+    options = {  ...DEFAULT_OPTIONS, ...options };
+    this.basePath = options.contentDir;
     this.readers = [ new PostsReader(path.join(this.basePath, 'posts/')) ];
     this.renderers = [ PostRenderer, PostsRollupRenderer ];
-    this.writer = new SiteWriter(path.join(process.cwd(), 'build/'));
+    this.writer = new SiteWriter(path.join(process.cwd(), options.outputDir));
   }
 
   public build(): Promise<any> {
