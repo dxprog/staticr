@@ -1,8 +1,11 @@
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 import * as path from 'path';
+import * as React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 import IPost from './interfaces/post';
+import { Post } from './components/post';
 
 export default class PostRenderer {
   private postTemplate: Function;
@@ -13,6 +16,7 @@ export default class PostRenderer {
   }
 
   render(post: IPost) {
-    return this.postTemplate(post);
+    const renderedPost = <Post post={post} />;
+    return renderToStaticMarkup(renderedPost);
   }
 }

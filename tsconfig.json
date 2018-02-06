@@ -3,7 +3,7 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "commonjs",
+    "module": "umd",
     "lib": [ "es2015", "dom" ],
     "target": "es5",
     "jsx": "react",
