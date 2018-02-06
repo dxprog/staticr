@@ -1,30 +1,49 @@
 import * as path from 'path';
 import { renderToStaticMarkup } from 'react-dom/server';
 import * as React from 'react';
-import { ReactNode, ReactElement } from 'react';
-
-import PostsReader from './posts-reader';
-
-import IPost from './interfaces/post';
+import { ReactNode, ReactElement, Component } from 'react';
 
 import Page from './components/page';
-import Post from './components/post';
+import PostsReader from './posts-reader';
+import PostRenderer from './renderers/post-renderer';
+import PostsRollupRenderer from './renderers/posts-rollup-renderer';
+
+import IRenderedPost from './interfaces/rendered-page';
+import IRenderer from './interfaces/renderer';
+import IPost from './interfaces/post';
+
+const HTML_DOCTYPE = '<!DOCTYPE html>\n';
 
 export default class PageGenerator {
   private basePath: string;
   private readers: Array<PostsReader>;
+  private renderers: Array<IRenderer>;
 
   constructor(basePath: string) {
     this.basePath = basePath || process.cwd();
     this.readers = [ new PostsReader(path.join(this.basePath, 'posts/')) ];
+    this.renderers = [ PostRenderer, PostsRollupRenderer ];
   }
 
-  public build(): Promise<void> {
-    return this.readPosts().then((posts: Array<IPost>) => {
-      const postsCollection: Array<ReactElement<Post>> =
-        posts.map((post: IPost, index: number) => <Post post={post} key={`post-${index}`} />);
-      console.log(renderToStaticMarkup(<Page title="Hello, world" bodyNodes={postsCollection} />));
-    });
+  public build(): Promise<any> {
+    return this.readPosts()
+      .then((posts: Array<IPost>) => Promise.all(
+        this.renderers.map((renderer: IRenderer) => renderer.renderPosts(posts))
+      ))
+      .then((renders: Array<Array<IRenderedPost>>) => {
+        renders.reduce((allRenders: Array<IRenderedPost>, currentRenders: Array<IRenderedPost>) =>
+          [ ...allRenders, ...currentRenders ], []
+        ).map((render: IRenderedPost) => {
+          console.log(render.path);
+          const htmlOut = `${HTML_DOCTYPE}${renderToStaticMarkup(
+            <Page title={render.title} bodyNodes={render.pageComponent} />
+          )}`;
+          console.log(htmlOut);
+        });
+      })
+      .catch(err => {
+        console.error('Something barfed', err);
+      });
   }
 
   /**
@@ -41,5 +60,9 @@ export default class PageGenerator {
 
   public addReader(reader: PostsReader) {
     this.readers.push(reader);
+  }
+
+  public addRenderer(renderer: IRenderer) {
+    this.renderers.push(renderer);
   }
 };

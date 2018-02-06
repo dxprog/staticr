@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ReactNode } from 'react';
+import { ReactNode, ReactElement } from 'react';
 
 interface Props {
   title: string;
-  bodyNodes: Array<ReactNode>;
+  bodyNodes: Array<ReactNode> | ReactElement<any>;
 }
 
 export default class Post extends React.Component<Props, undefined> {
