@@ -1,6 +1,6 @@
-import IPost from './post';
-import IRenderedPage from './rendered-page';
+import { IPost } from './post';
+import { IRenderedPage } from './rendered-page';
 
-export default interface IRenderer {
+export interface IRenderer {
   renderPosts(posts: Array<IPost>): Promise<Array<IRenderedPage>>;
 }

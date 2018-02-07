@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { ReactNode } from 'react';
 
-import IPost from '../interfaces/post';
+import { IPost } from '../interfaces/post';
 
-interface Props {
+export interface IPostProps {
   post: IPost;
 }
 
-export default class Post extends React.Component<Props, undefined> {
-  public props: Props;
+export class Post extends React.Component<IPostProps, undefined> {
+  public props: IPostProps;
 
   render(): ReactNode {
     return (

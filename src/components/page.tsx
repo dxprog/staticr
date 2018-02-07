@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { ReactNode, ReactElement } from 'react';
 
-interface Props {
+export interface IPageProps {
   title: string;
   bodyNodes: Array<ReactNode> | ReactElement<any>;
 }
 
-export default class Post extends React.Component<Props, undefined> {
-  public props: Props;
+export class Page extends React.Component<IPageProps, undefined> {
+  public props: IPageProps;
 
   render(): ReactNode {
     return (

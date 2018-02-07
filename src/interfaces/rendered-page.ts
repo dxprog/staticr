@@ -1,6 +1,6 @@
 import { ReactElement, Component } from 'react';
 
-export default interface IRenderedPost {
+export interface IRenderedPage {
   /**
    * The <title> of the page
    */

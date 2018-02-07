@@ -4,12 +4,12 @@ import * as fm from 'front-matter';
 import * as marked from 'marked';
 import * as path from 'path';
 
-import IPost from './interfaces/post';
+import { IPost } from './interfaces/post';
 
 const readdirAsync: Function = bluebird.promisify(fs.readdir);
 const readFileAsync: Function = bluebird.promisify(fs.readFile);
 
-export default class PostsReader {
+export class PostsReader {
   private path: string;
   private posts: Array<any>;
 

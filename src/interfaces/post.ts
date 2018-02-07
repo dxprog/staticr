@@ -1,4 +1,4 @@
-export default interface IPost {
+export interface IPost {
   attributes: any;
   body: string;
   html?: string;

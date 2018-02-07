@@ -3,12 +3,12 @@ import * as fs from 'fs';
 import * as mkdirp from 'mkdirp';
 import * as path from 'path';
 
-import IRenderedPage from './interfaces/rendered-page';
+import { IRenderedPage } from './interfaces/rendered-page';
 
 const writeFileAsync = bluebird.promisify(fs.writeFile);
 const mkdirpAsync = bluebird.promisify(mkdirp);
 
-export default class SiteWriter {
+export class SiteWriter {
   private outputPath: string;
 
   constructor(outputPath: string) {

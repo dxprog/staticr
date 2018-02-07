@@ -1,4 +1,4 @@
-export default interface IPageGeneratorOptions {
+export interface IPageGeneratorOptions {
   contentDir?: string;
   outputDir?: string;
 }

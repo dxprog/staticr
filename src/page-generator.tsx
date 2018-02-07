@@ -3,16 +3,19 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import * as React from 'react';
 import { ReactNode, ReactElement, Component } from 'react';
 
-import Page from './components/page';
-import PostsReader from './posts-reader';
-import PostRenderer from './renderers/post-renderer';
-import PostsRollupRenderer from './renderers/posts-rollup-renderer';
-import SiteWriter from './site-writer';
+// Interfaces
+import { IPageGeneratorOptions } from './interfaces/page-generator-options';
+import { IPost } from './interfaces/post';
+import { IRenderedPage } from './interfaces/rendered-page';
+import { IRenderer } from './interfaces/renderer';
 
-import IPageGeneratorOptions from './interfaces/page-generator-options';
-import IPost from './interfaces/post';
-import IRenderedPost from './interfaces/rendered-page';
-import IRenderer from './interfaces/renderer';
+// Components and renderers
+import { Page } from './components/page';
+import { PostRenderer } from './renderers/post-renderer';
+import { PostsRollupRenderer } from './renderers/posts-rollup-renderer';
+
+import { PostsReader } from './posts-reader';
+import { SiteWriter } from './site-writer';
 
 const HTML_DOCTYPE: string = '<!DOCTYPE html>\n';
 const DEFAULT_OPTIONS: IPageGeneratorOptions = {
@@ -20,7 +23,7 @@ const DEFAULT_OPTIONS: IPageGeneratorOptions = {
   outputDir: path.join(process.cwd(), 'build/')
 };
 
-export default class PageGenerator {
+export class PageGenerator {
   private basePath: string;
   private readers: Array<PostsReader>;
   private renderers: Array<IRenderer>;
@@ -39,17 +42,17 @@ export default class PageGenerator {
       .then((posts: Array<IPost>) => Promise.all(
         this.renderers.map((renderer: IRenderer) => renderer.renderPosts(posts))
       ))
-      .then((renders: Array<Array<IRenderedPost>>): Array<IRenderedPost> => {
-        return renders.reduce((allRenders: Array<IRenderedPost>, currentRenders: Array<IRenderedPost>) =>
+      .then((renders: Array<Array<IRenderedPage>>): Array<IRenderedPage> => {
+        return renders.reduce((allRenders: Array<IRenderedPage>, currentRenders: Array<IRenderedPage>) =>
           [ ...allRenders, ...currentRenders ], []
-        ).map((render: IRenderedPost) => {
+        ).map((render: IRenderedPage) => {
           render.pageHtml = `${HTML_DOCTYPE}${renderToStaticMarkup(
             <Page title={render.title} bodyNodes={render.pageComponent} />
           )}`;
           return render;
         });
       })
-      .then((renders: Array<IRenderedPost>) => this.writer.write(renders))
+      .then((renders: Array<IRenderedPage>) => this.writer.write(renders))
       .catch(err => {
         console.error('Something barfed', err);
       });

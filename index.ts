@@ -1,4 +1,4 @@
-import PageGenerator from './src/page-generator';
+import { PageGenerator } from './src/page-generator';
 import * as path from 'path';
 
 const pg = new PageGenerator({

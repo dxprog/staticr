@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { ReactNode } from 'react';
 
-import IPost from '../interfaces/post';
+import { IPost } from '../interfaces/post';
 
-import Post from './post';
+import { Post } from './post';
 
-interface Props {
+export interface IPostsRollup {
   posts: Array<IPost>;
 }
 
-export default class PostsRollup extends React.Component<Props, undefined> {
-  public props: Props;
+export class PostsRollup extends React.Component<IPostsRollup, undefined> {
+  public props: IPostsRollup;
 
   render(): ReactNode {
     return (
