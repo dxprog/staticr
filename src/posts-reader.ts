@@ -5,11 +5,12 @@ import * as marked from 'marked';
 import * as path from 'path';
 
 import { IPost } from './interfaces/post';
+import { IContentReader } from './interfaces/content-reader';
 
 const readdirAsync: Function = bluebird.promisify(fs.readdir);
 const readFileAsync: Function = bluebird.promisify(fs.readFile);
 
-export class PostsReader {
+export class PostsReader implements IContentReader {
   private path: string;
   private posts: Array<any>;
 

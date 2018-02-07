@@ -4,6 +4,7 @@ import * as React from 'react';
 import { ReactNode, ReactElement, Component } from 'react';
 
 // Interfaces
+import { IContentReader } from './interfaces/content-reader';
 import { IPageGeneratorOptions } from './interfaces/page-generator-options';
 import { IPost } from './interfaces/post';
 import { IRenderedPage } from './interfaces/rendered-page';
@@ -25,7 +26,7 @@ const DEFAULT_OPTIONS: IPageGeneratorOptions = {
 
 export class PageGenerator {
   private basePath: string;
-  private readers: Array<PostsReader>;
+  private readers: Array<IContentReader>;
   private renderers: Array<IRenderer>;
   private writer: SiteWriter;
 
@@ -70,7 +71,7 @@ export class PageGenerator {
     });
   }
 
-  public addReader(reader: PostsReader) {
+  public addReader(reader: IContentReader) {
     this.readers.push(reader);
   }
 
