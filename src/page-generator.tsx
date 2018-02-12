@@ -21,7 +21,8 @@ import { SiteWriter } from './site-writer';
 const HTML_DOCTYPE: string = '<!DOCTYPE html>\n';
 const DEFAULT_OPTIONS: IPageGeneratorOptions = {
   contentDir: process.cwd(),
-  outputDir: path.join(process.cwd(), 'build/')
+  outputDir: path.join(process.cwd(), 'build/'),
+  renderers: [ PostRenderer, PostsRollupRenderer ]
 };
 
 export class PageGenerator {
@@ -34,7 +35,7 @@ export class PageGenerator {
     options = {  ...DEFAULT_OPTIONS, ...options };
     this.basePath = options.contentDir;
     this.readers = [ new PostsReader(path.join(this.basePath, 'posts/')) ];
-    this.renderers = [ PostRenderer, PostsRollupRenderer ];
+    this.renderers = options.renderers;
     this.writer = new SiteWriter(options.outputDir);
   }
 
