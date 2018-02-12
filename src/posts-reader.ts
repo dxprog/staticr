@@ -1,14 +1,10 @@
-import * as bluebird from 'bluebird';
-import * as fs from 'fs';
+import * as fs from 'fs-extra';
 import * as fm from 'front-matter';
 import * as marked from 'marked';
 import * as path from 'path';
 
 import { IPost } from './interfaces/post';
 import { IContentReader } from './interfaces/content-reader';
-
-const readdirAsync: Function = bluebird.promisify(fs.readdir);
-const readFileAsync: Function = bluebird.promisify(fs.readFile);
 
 export class PostsReader implements IContentReader {
   private path: string;
@@ -20,9 +16,9 @@ export class PostsReader implements IContentReader {
   }
 
   read(): Promise<Array<IPost>> {
-    return readdirAsync(this.path)
+    return fs.readdir(this.path)
       .then((posts: Array<string>) => Promise.all(posts.map((post: string) => {
-        return readFileAsync(path.join(this.path, post)).then((data: Buffer) => {
+        return fs.readFile(path.join(this.path, post)).then((data: Buffer) => {
           const retVal: IPost = fm(data.toString('utf-8'));
           retVal.html = marked(retVal.body.trim());
           return retVal;

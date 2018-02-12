@@ -25,16 +25,16 @@
   ],
   "homepage": "https://github.com/dxprog/staticr#readme",
   "dependencies": {
-    "bluebird": "^3.5.1",
     "front-matter": "^2.3.0",
+    "fs-extra": "^5.0.0",
     "marked": "^0.3.12",
-    "mkdirp": "^0.5.1",
     "moment-timezone": "^0.5.14",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.20",
+    "@types/fs-extra": "^5.0.0",
     "@types/marked": "^0.3.0",
     "@types/mkdirp": "^0.5.2",
     "@types/moment-timezone": "^0.5.4",

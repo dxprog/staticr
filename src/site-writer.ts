@@ -1,12 +1,7 @@
-import * as bluebird from 'bluebird';
-import * as fs from 'fs';
-import * as mkdirp from 'mkdirp';
+import * as fs from 'fs-extra';
 import * as path from 'path';
 
 import { IRenderedPage } from './interfaces/rendered-page';
-
-const writeFileAsync = bluebird.promisify(fs.writeFile);
-const mkdirpAsync = bluebird.promisify(mkdirp);
 
 export class SiteWriter {
   private outputPath: string;
@@ -25,8 +20,8 @@ export class SiteWriter {
         filePath = path.join(dirPath, 'index.html');
       }
 
-      return mkdirpAsync(dirPath)
-        .then(() => writeFileAsync(filePath, render.pageHtml));
+      return fs.mkdirs(dirPath)
+        .then(() => fs.writeFile(filePath, render.pageHtml));
     }));
   }
 }
