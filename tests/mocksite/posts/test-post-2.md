@@ -1,6 +1,6 @@
 ---
 title: How many times can we test?
-date: 2018/02/03 11:21PM
+date: 2018-02-03T23:21:00-06:00
 slug: how-many-times-can-we-test
 ---
 # Testing is the future!
