@@ -29,7 +29,7 @@ export class PageGenerator {
   private basePath: string;
   private readers: Array<IContentReader>;
   private renderers: Array<IRenderer>;
-  private writer: SiteWriter;
+  public writer: SiteWriter;
 
   constructor(options: IPageGeneratorOptions = DEFAULT_OPTIONS) {
     options = {  ...DEFAULT_OPTIONS, ...options };
