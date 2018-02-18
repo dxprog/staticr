@@ -21,7 +21,10 @@ const HTML_DOCTYPE: string = '<!DOCTYPE html>\n';
 const DEFAULT_OPTIONS: IPageGeneratorOptions = {
   contentDir: process.cwd(),
   outputDir: path.join(process.cwd(), 'build/'),
-  renderers: [ PostRenderer, PostsRollupRenderer ]
+  renderers: [
+    PostRenderer,
+    new PostsRollupRenderer()
+  ]
 };
 
 export class SiteGenerator {
