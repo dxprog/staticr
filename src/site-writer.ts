@@ -41,7 +41,7 @@ export class SiteWriter {
       .then(() => Promise.all(this.staticContent.map(staticContent => {
         const outputPath: string = path.resolve(this.outputPath, staticContent.pathName);
         return fs.mkdirs(staticContent.pathName)
-          .then(() => fs.copy(staticContent.srcPath, outputPath));
+          .then(() => fs.copy(staticContent.srcPath, outputPath, { overwrite: true }));
       })));
   }
 }
