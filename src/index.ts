@@ -15,3 +15,12 @@ export const Renderers = {
   PostRenderer,
   PostsRollupRenderer,
 };
+
+import { Page } from './components/page';
+import { Post } from './components/post';
+import { PostsRollup } from './components/posts-rollup';
+export const Components = {
+  Page,
+  Post,
+  PostsRollup,
+};
