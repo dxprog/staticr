@@ -1,5 +1,4 @@
 import * as path from 'path';
-import { renderToStaticMarkup } from 'react-dom/server';
 import * as React from 'react';
 import { ReactNode, ReactElement, Component } from 'react';
 
@@ -10,8 +9,8 @@ import { IPost } from './interfaces/post';
 import { IRenderedPage } from './interfaces/rendered-page';
 import { IRenderer } from './interfaces/renderer';
 
-// Components and renderers
-import { Page } from './components/page';
+// Renderers
+import { PageRenderer } from './renderers/page-renderer';
 import { PostRenderer } from './renderers/post-renderer';
 import { PostsRollupRenderer } from './renderers/posts-rollup-renderer';
 
@@ -47,12 +46,9 @@ export class SiteGenerator {
       .then((renders: Array<Array<IRenderedPage>>): Array<IRenderedPage> => {
         return renders.reduce((allRenders: Array<IRenderedPage>, currentRenders: Array<IRenderedPage>) =>
           [ ...allRenders, ...currentRenders ], []
-        ).map((render: IRenderedPage) => {
-          render.pageHtml = `${HTML_DOCTYPE}${renderToStaticMarkup(
-            <Page title={render.title} bodyNodes={render.pageComponent} />
-          )}`;
-          return render;
-        });
+        ).map((render: IRenderedPage) =>
+          render.pageRenderer ? render.pageRenderer.renderPage(render) : PageRenderer.renderPage(render)
+        );
       })
       .then((renders: Array<IRenderedPage>) => this.writer.write(renders))
       .catch(err => {

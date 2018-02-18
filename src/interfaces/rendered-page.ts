@@ -1,5 +1,7 @@
 import { ReactElement, Component } from 'react';
 
+import { IPageRenderer } from './page-renderer';
+
 export interface IRenderedPage {
   /**
    * The <title> of the page
@@ -21,4 +23,9 @@ export interface IRenderedPage {
    * TODO: probably not do this...
    */
   pageHtml?: string;
+
+  /**
+   * Overrides the default page renderer
+   */
+  pageRenderer?: IPageRenderer;
 }
