@@ -1,4 +1,4 @@
-export * from './page-generator';
+export * from './site-generator';
 export * from './posts-reader';
 export * from './interfaces/post';
 export * from './interfaces/rendered-page';

@@ -25,7 +25,7 @@ const DEFAULT_OPTIONS: IPageGeneratorOptions = {
   renderers: [ PostRenderer, PostsRollupRenderer ]
 };
 
-export class PageGenerator {
+export class SiteGenerator {
   private basePath: string;
   private readers: Array<IContentReader>;
   private renderers: Array<IRenderer>;

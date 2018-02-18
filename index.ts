@@ -1,7 +1,7 @@
-import { PageGenerator } from './src/page-generator';
+import { SiteGenerator } from './src/site-generator';
 import * as path from 'path';
 
-const pg = new PageGenerator({
+const pg = new SiteGenerator({
   contentDir: path.join(process.cwd(), 'tests/mocksite')
 });
 
