@@ -1,10 +1,11 @@
 import * as path from 'path';
 import * as React from 'react';
 import { ReactNode, ReactElement, Component } from 'react';
+import * as url from 'url';
 
 // Interfaces
 import { IContentReader } from './interfaces/content-reader';
-import { IPageGeneratorOptions } from './interfaces/page-generator-options';
+import { ISiteGeneratorOptions } from './interfaces/page-generator-options';
 import { IPost } from './interfaces/post';
 import { IRenderedPage } from './interfaces/rendered-page';
 import { IRenderer } from './interfaces/renderer';
@@ -18,7 +19,7 @@ import { PostsReader } from './posts-reader';
 import { SiteWriter } from './site-writer';
 
 const HTML_DOCTYPE: string = '<!DOCTYPE html>\n';
-const DEFAULT_OPTIONS: IPageGeneratorOptions = {
+const DEFAULT_OPTIONS: ISiteGeneratorOptions = {
   contentDir: process.cwd(),
   outputDir: path.join(process.cwd(), 'build/'),
   renderers: [
@@ -29,13 +30,15 @@ const DEFAULT_OPTIONS: IPageGeneratorOptions = {
 
 export class SiteGenerator {
   private basePath: string;
+  private baseUrl: string;
   private readers: Array<IContentReader>;
   private renderers: Array<IRenderer>;
   public writer: SiteWriter;
 
-  constructor(options: IPageGeneratorOptions = DEFAULT_OPTIONS) {
+  constructor(options: ISiteGeneratorOptions = DEFAULT_OPTIONS) {
     options = {  ...DEFAULT_OPTIONS, ...options };
     this.basePath = options.contentDir;
+    this.baseUrl = options.baseUrl;
     this.readers = [ new PostsReader(path.join(this.basePath, 'posts/')) ];
     this.renderers = options.renderers;
     this.writer = new SiteWriter(options.outputDir);
@@ -44,13 +47,13 @@ export class SiteGenerator {
   public build(): Promise<any> {
     return this.readPosts()
       .then((posts: Array<IPost>) => Promise.all(
-        this.renderers.map((renderer: IRenderer) => renderer.renderPosts(posts))
+        this.renderers.map((renderer: IRenderer) => renderer.renderPosts(posts, this))
       ))
       .then((renders: Array<Array<IRenderedPage>>): Array<IRenderedPage> => {
         return renders.reduce((allRenders: Array<IRenderedPage>, currentRenders: Array<IRenderedPage>) =>
           [ ...allRenders, ...currentRenders ], []
         ).map((render: IRenderedPage) =>
-          render.pageRenderer ? render.pageRenderer.renderPage(render) : PageRenderer.renderPage(render)
+          render.pageRenderer ? render.pageRenderer.renderPage(render, this) : PageRenderer.renderPage(render, this)
         );
       })
       .then((renders: Array<IRenderedPage>) => this.writer.write(renders))
@@ -77,5 +80,13 @@ export class SiteGenerator {
 
   public addRenderer(renderer: IRenderer) {
     this.renderers.push(renderer);
+  }
+
+  public generateUrl(urlPath: string) {
+    let retVal = urlPath;
+    if (this.baseUrl) {
+      retVal = url.resolve(this.baseUrl, urlPath);
+    }
+    return retVal;
   }
 };

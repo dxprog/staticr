@@ -6,6 +6,7 @@ import { IRenderer } from '../interfaces/renderer';
 import { IRenderedPage } from '../interfaces/rendered-page';
 
 import { PostsRollup } from '../components/posts-rollup';
+import { SiteGenerator, SiteGenerator } from '../site-generator';
 
 const POSTS_PER_PAGE = 2;
 
@@ -19,7 +20,7 @@ export class PostsRollupRenderer implements IRenderer {
     this.postsPerPage = postsPerPage;
   }
 
-  renderPosts(posts: Array<IPost>): Promise<Array<IRenderedPage>> {
+  renderPosts(posts: Array<IPost>, siteGenerator: SiteGenerator): Promise<Array<IRenderedPage>> {
     let sortedPosts = [ ...posts ];
     sortedPosts.sort((a: IPost, b: IPost) => {
       return (new Date(a.attributes.date)).getTime() > (new Date(b.attributes.date)).getTime() ? -1 : 1;
@@ -34,7 +35,7 @@ export class PostsRollupRenderer implements IRenderer {
       pages.push({
         title: `Archives - Page ${pageNum}`,
         path: `archives/${pageNum}`,
-        pageComponent: <PostsRollup posts={posts} />
+        pageComponent: <PostsRollup posts={posts} siteGenerator={siteGenerator} />
       });
     }
 
