@@ -16,6 +16,7 @@ export class Page extends React.Component<IPageProps, undefined> {
     return (
       <html>
         <head>
+          <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
           <title>{this.props.title}</title>
           <link rel="stylesheet" type="text/css" href={this.props.siteGenerator.generateUrl('static/css/index.css')} />
         </head>
