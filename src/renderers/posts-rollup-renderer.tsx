@@ -6,7 +6,7 @@ import { IRenderer } from '../interfaces/renderer';
 import { IRenderedPage } from '../interfaces/rendered-page';
 
 import { PostsRollup } from '../components/posts-rollup';
-import { SiteGenerator, SiteGenerator } from '../site-generator';
+import { SiteGenerator } from '../site-generator';
 
 const POSTS_PER_PAGE = 2;
 
@@ -32,10 +32,12 @@ export class PostsRollupRenderer implements IRenderer {
     for (let i: number = 0; i < sortedPosts.length; i += this.postsPerPage) {
       pageNum++;
       const posts = sortedPosts.slice(i, i + this.postsPerPage);
+      const previousPage = i > 0 ? pageNum - 1 : null;
+      const nextPage = i + this.postsPerPage < sortedPosts.length ? pageNum + 1 : null;
       pages.push({
         title: `Archives - Page ${pageNum}`,
         path: `archives/${pageNum}`,
-        pageComponent: <PostsRollup posts={posts} siteGenerator={siteGenerator} />
+        pageComponent: <PostsRollup posts={posts} siteGenerator={siteGenerator} previousPage={previousPage} nextPage={nextPage} />
       });
     }
 
