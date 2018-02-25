@@ -1,6 +1,7 @@
 export * from './site-generator';
 export * from './posts-reader';
 export * from './interfaces/post';
+export * from './interfaces/posts-rollup-page';
 export * from './interfaces/rendered-page';
 export * from './interfaces/renderer';
 export * from './interfaces/content-reader';
