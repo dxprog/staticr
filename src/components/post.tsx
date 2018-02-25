@@ -16,14 +16,18 @@ export class Post extends React.Component<IPostProps, undefined> {
   render(): ReactNode {
     const path = `entry/${this.props.post.attributes.slug}`;
     return (
-      <article>
-        <h2>
-          <a href={this.props.siteGenerator.generateUrl(path)}>
-            {this.props.post.attributes.title}
-          </a>
-        </h2>
-        <time>{moment(this.props.post.attributes.date).format('MMMM D, YYYY')}</time>
-        <div dangerouslySetInnerHTML={{ __html: this.props.post.html}} />
+      <article className="post">
+        <header className="post__header">
+          <h1 className="post__title">
+            <a href={this.props.siteGenerator.generateUrl(path)}>
+              {this.props.post.attributes.title}
+            </a>
+          </h1>
+          <time className="post__published">
+            {moment(this.props.post.attributes.date).format('MMMM D, YYYY')}
+          </time>
+        </header>
+        <div className="post__content" dangerouslySetInnerHTML={{ __html: this.props.post.html}} />
       </article>
     );
   }
