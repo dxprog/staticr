@@ -14,16 +14,17 @@ import { IRenderer } from './interfaces/renderer';
 import { PageRenderer } from './renderers/page-renderer';
 import { PostRenderer } from './renderers/post-renderer';
 import { PostsRollupRenderer } from './renderers/posts-rollup-renderer';
+import { PostRedirectRenderer } from './renderers/post-redirect-renderer';
 
 import { PostsReader } from './posts-reader';
 import { SiteWriter } from './site-writer';
 
-const HTML_DOCTYPE: string = '<!DOCTYPE html>\n';
 const DEFAULT_OPTIONS: ISiteGeneratorOptions = {
   contentDir: process.cwd(),
   outputDir: path.join(process.cwd(), 'build/'),
   renderers: [
     PostRenderer,
+    PostRedirectRenderer,
     new PostsRollupRenderer()
   ]
 };

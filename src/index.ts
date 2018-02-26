@@ -8,13 +8,17 @@ export * from './interfaces/content-reader';
 
 import { IPageRenderer } from './interfaces/page-renderer';
 import { IRenderer } from './interfaces/renderer';
-import { PostsRollupRenderer } from './renderers/posts-rollup-renderer';
-import { PostRenderer } from './renderers/post-renderer';
 import { PageRenderer } from './renderers/page-renderer';
+import { PostsRollupRenderer } from './renderers/posts-rollup-renderer';
+import { PostRedirectRenderer } from './renderers/post-redirect-renderer';
+import { PostRenderer } from './renderers/post-renderer';
+import { RedirectPageRenderer } from './renderers/redirect-page-renderer';
 export const Renderers = {
   PageRenderer,
+  PostRedirectRenderer,
   PostRenderer,
   PostsRollupRenderer,
+  RedirectPageRenderer,
 };
 
 import { Page } from './components/page';
