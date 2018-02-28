@@ -5,7 +5,7 @@ import * as url from 'url';
 
 // Interfaces
 import { IContentReader } from './interfaces/content-reader';
-import { ISiteGeneratorOptions } from './interfaces/page-generator-options';
+import { ISiteGeneratorOptions } from './interfaces/site-generator-options';
 import { IPost } from './interfaces/post';
 import { IRenderedPage } from './interfaces/rendered-page';
 import { IRenderer } from './interfaces/renderer';
@@ -40,7 +40,7 @@ export class SiteGenerator {
     options = {  ...DEFAULT_OPTIONS, ...options };
     this.basePath = options.contentDir;
     this.baseUrl = options.baseUrl;
-    this.readers = [ new PostsReader(path.join(this.basePath, 'posts/')) ];
+    this.readers = [ new PostsReader(path.join(this.basePath, 'posts/'), options.markedOptions) ];
     this.renderers = options.renderers;
     this.writer = new SiteWriter(options.outputDir);
   }

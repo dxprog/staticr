@@ -6,13 +6,17 @@ import * as path from 'path';
 import { IPost } from './interfaces/post';
 import { IContentReader } from './interfaces/content-reader';
 
+// None yet, but maybe some day
+const DEFAULT_MARKED_OPTIONS = {};
+
 export class PostsReader implements IContentReader {
   private path: string;
   private posts: Array<any>;
 
-  constructor(path: string) {
+  constructor(path: string, markedOptions: object = {}) {
     this.path = path;
     this.posts = [];
+    marked.setOptions({ ...DEFAULT_MARKED_OPTIONS, ...markedOptions });
   }
 
   read(): Promise<Array<IPost>> {

@@ -5,4 +5,5 @@ export interface ISiteGeneratorOptions {
   outputDir?: string;
   renderers?: Array<IRenderer>;
   baseUrl?: string;
+  markedOptions?: object;
 }
