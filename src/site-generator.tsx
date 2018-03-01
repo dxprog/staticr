@@ -26,7 +26,8 @@ const DEFAULT_OPTIONS: ISiteGeneratorOptions = {
     PostRenderer,
     PostRedirectRenderer,
     new PostsRollupRenderer()
-  ]
+  ],
+  siteTitle: '',
 };
 
 export class SiteGenerator {
@@ -35,6 +36,7 @@ export class SiteGenerator {
   private readers: Array<IContentReader>;
   private renderers: Array<IRenderer>;
   public writer: SiteWriter;
+  public siteTitle: string;
 
   constructor(options: ISiteGeneratorOptions = DEFAULT_OPTIONS) {
     options = {  ...DEFAULT_OPTIONS, ...options };
@@ -43,6 +45,7 @@ export class SiteGenerator {
     this.readers = [ new PostsReader(path.join(this.basePath, 'posts/'), options.markedOptions) ];
     this.renderers = options.renderers;
     this.writer = new SiteWriter(options.outputDir);
+    this.siteTitle = options.siteTitle;
   }
 
   public build(): Promise<any> {
