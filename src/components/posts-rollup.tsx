@@ -19,7 +19,7 @@ export class PostsRollup extends React.Component<IPostsRollup, undefined> {
     let previousLink;
     if (this.props.previousPage) {
       previousLink = (
-        <a href={this.props.siteGenerator.generateUrl(`archives/${this.props.previousPage}.html`)} className="paging__link paging__link--previous">
+        <a href={this.props.siteGenerator.generateUrl(`archives/${this.props.previousPage}`)} className="paging__link paging__link--previous">
           Later Posts
         </a>
       );
@@ -28,7 +28,7 @@ export class PostsRollup extends React.Component<IPostsRollup, undefined> {
     let nextLink;
     if (this.props.nextPage) {
       nextLink = (
-        <a href={this.props.siteGenerator.generateUrl(`archives/${this.props.nextPage}.html`)} className="paging__link paging__link--next">
+        <a href={this.props.siteGenerator.generateUrl(`archives/${this.props.nextPage}`)} className="paging__link paging__link--next">
           Earlier Posts
         </a>
       );
