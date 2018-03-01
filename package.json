@@ -1,6 +1,6 @@
 {
   "name": "staticr-site",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A stupid static site generator because I hate everything",
   "main": "dist/index.js",
   "module": "dist/index.js",
