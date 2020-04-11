@@ -20,4 +20,14 @@ export interface IPostsRollupPage {
    * The posts to render for this page
    */
   posts: Array<IPost>;
+
+  /**
+   * All sorted posts being iterated through
+   */
+  sortedPosts: Array<IPost>;
+
+  /**
+   * Current index within the sorted posts
+   */
+  sortedPostIndex: number;
 }

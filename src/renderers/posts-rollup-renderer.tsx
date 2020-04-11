@@ -40,7 +40,9 @@ export class PostsRollupRenderer implements IRenderer {
         pageNum,
         previousPage,
         nextPage,
-        posts: postsToRender
+        posts: postsToRender,
+        sortedPosts,
+        sortedPostIndex: i,
       });
     }
   }
@@ -48,15 +50,16 @@ export class PostsRollupRenderer implements IRenderer {
   renderPosts(posts: Array<IPost>, siteGenerator: SiteGenerator): Promise<Array<IRenderedPage>> {
     const pages: Array<IRenderedPage> = [];
     this.iteratePostPages(posts, (postsPage: IPostsRollupPage) => {
+      const { pageNum, posts, previousPage, nextPage } = postsPage;
       pages.push({
-        title: `Archives - Page ${postsPage.pageNum}`,
-        path: `archives/${postsPage.pageNum}`,
+        title: `Archives - Page ${pageNum}`,
+        path: `archives/${pageNum}`,
         pageComponent: (
           <PostsRollup
-            posts={postsPage.posts}
+            posts={posts}
             siteGenerator={siteGenerator}
-            previousPage={postsPage.previousPage}
-            nextPage={postsPage.nextPage} />
+            previousPage={previousPage}
+            nextPage={nextPage} />
         )
       });
     });
