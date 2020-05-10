@@ -1,6 +1,6 @@
 {
   "name": "staticr-site",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "A stupid static site generator because I hate everything",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -8,8 +8,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "rm -rf build/ && ts-node index.ts",
-    "postinstall": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dxprog/staticr.git"
