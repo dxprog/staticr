@@ -9,6 +9,11 @@ export interface IRenderedPage {
   title: string;
 
   /**
+   * Any tags to place in the page <head>
+   */
+  headComponents?: Array<ReactElement> | ReactElement<any>;
+
+  /**
    * The rendered ReactElement to be placed in the page body
    */
   pageComponent: ReactElement<any>;

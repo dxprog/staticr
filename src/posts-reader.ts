@@ -24,7 +24,7 @@ export class PostsReader implements IContentReader {
       .then((posts: Array<string>) => Promise.all(posts.map((post: string) => {
         return fs.readFile(path.join(this.path, post)).then((data: Buffer) => {
           const retVal: IPost = fm(data.toString('utf-8'));
-          retVal.html = marked(retVal.body.trim());
+          retVal.html = marked.parse(retVal.body.trim());
           return retVal;
         });
       })));
