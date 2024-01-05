@@ -18,6 +18,11 @@ export const PostRenderer: IRenderer = {
         const path = `entry/${post.attributes.slug}`;
         return {
           title: post.attributes.title,
+          headComponents: (
+            <>
+              <meta name="og:title" content={post.attributes.title} />
+            </>
+          ),
           pageComponent: <Post post={post} siteGenerator={siteGenerator} />,
           path
         };

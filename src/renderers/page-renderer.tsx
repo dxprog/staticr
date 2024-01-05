@@ -11,7 +11,12 @@ const HTML_DOCTYPE: string = '<!DOCTYPE html>\n';
 export const PageRenderer: IPageRenderer = {
   renderPage(page: IRenderedPage, siteGenerator: SiteGenerator): IRenderedPage {
     page.pageHtml = `${HTML_DOCTYPE}${renderToStaticMarkup(
-      <Page title={page.title} bodyNodes={page.pageComponent} siteGenerator={siteGenerator} />
+      <Page
+        title={page.title}
+        headNodes={page.headComponents}
+        bodyNodes={page.pageComponent}
+        siteGenerator={siteGenerator}
+      />
     )}`;
     return page;
   }
